@@ -8,18 +8,42 @@
                  @on-change="handleChange"
                  :start-index.sync="activeIndex"
                  color="#e74c3c">
-       <tab-content v-for="tab in tabs" :title="tab" :key="tab">{{tab}}</tab-content>
-        <transition name="fade" mode="out-in">
-          <router-view></router-view>
-        </transition>
+      <template slot="nav"
+                scope="props">
+        <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="props.stepsClasses">
+          <wizard-step v-for="(tab, index) in props.tabs"
+                       :tab="tab"
+                       :step-size="props.stepSize"
+                       @click.native="props.navigateToTab(index)"
+                       @keyup.enter.native="props.navigateToTab(index)"
+                       :transition="props.transition"
+                       :index="index">
+          </wizard-step>
+        </ul>
+      </template>
+      <tab-content v-for="tab in tabs" :title="tab" :key="tab">{{tab}}</tab-content>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </form-wizard>
+
+    <form-wizard @on-complete="onComplete"
+                 @on-change="handleChange"
+                 :start-index.sync="activeIndex"
+                 color="#e74c3c">
+      <tab-content v-for="tab in tabs" :title="tab" :key="tab">{{tab}}</tab-content>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </form-wizard>
   </div>
 </template>
 
 <script>
   import TabContent from "../src/components/TabContent";
+  import WizardStep from "../src/components/WizardStep";
   export default {
-    components: {TabContent},
+    components: {TabContent, WizardStep},
     data () {
       return {
         loadingWizard: false,

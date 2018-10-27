@@ -12,22 +12,29 @@
         <div class="wizard-progress-bar"
              :style="progressBarStyle"></div>
       </div>
-      <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
-        <slot name="step" v-for="(tab, index) in tabs"
-              :tab="tab"
-              :index="index"
-              :navigate-to-tab="navigateToTab"
-              :step-size="stepSize"
-              :transition="transition">
-          <wizard-step :tab="tab"
-                       :step-size="stepSize"
-                       @click.native="navigateToTab(index)"
-                       @keyup.enter.native="navigateToTab(index)"
-                       :transition="transition"
-                       :index="index">
-          </wizard-step>
-        </slot>
-      </ul>
+      <slot name="nav"
+            :tabs="tabs"
+            :navigate-to-tab="navigateToTab"
+            :steps-classes="stepsClasses"
+            :step-size="stepSize"
+            :transition="transition">
+        <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
+          <slot name="step" v-for="(tab, index) in tabs"
+                :tab="tab"
+                :index="index"
+                :navigate-to-tab="navigateToTab"
+                :step-size="stepSize"
+                :transition="transition">
+            <wizard-step :tab="tab"
+                         :step-size="stepSize"
+                         @click.native="navigateToTab(index)"
+                         @keyup.enter.native="navigateToTab(index)"
+                         :transition="transition"
+                         :index="index">
+            </wizard-step>
+          </slot>
+        </ul>
+      </slot>
       <div class="wizard-tab-content">
         <slot v-bind="slotProps">
         </slot>
