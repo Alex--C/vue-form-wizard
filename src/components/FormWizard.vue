@@ -7,7 +7,7 @@
         <p class="category">{{subtitle}}</p>
       </slot>
     </div>
-    <div class="wizard-navigation">
+    <div class="wizard-navigation" :class="customWrapperClass">
       <div class="wizard-progress-with-circle" v-if="!isVertical">
         <div class="wizard-progress-bar"
              :style="progressBarStyle"></div>
@@ -35,7 +35,7 @@
           </slot>
         </ul>
       </slot>
-      <div class="wizard-tab-content">
+      <div class="wizard-tab-content" :class="customContentClass">
         <slot v-bind="slotProps">
         </slot>
       </div>
@@ -168,6 +168,14 @@
         validator: (value) => {
           return value >= 0
         }
+      },
+      customWrapperClass: {
+        type: String,
+        default: ''
+      },
+      customContentClass: {
+        type: String,
+        default: ''
       }
     },
     provide () {
