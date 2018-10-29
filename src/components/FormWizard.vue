@@ -181,7 +181,8 @@
     provide () {
       return {
         addTab: this.addTab,
-        removeTab: this.removeTab
+        removeTab: this.removeTab,
+        nextTab: this.nextTab
       }
     },
     data () {
@@ -467,9 +468,11 @@
       initializeTabs () {
         if (this.tabs.length > 0 && this.startIndex === 0) {
           this.activateTab(this.activeTabIndex)
+          this.afterTabChange(this.activeTabIndex)
         }
         if (this.startIndex < this.tabs.length) {
           this.activateTabAndCheckStep(this.startIndex)
+          this.afterTabChange(this.startIndex)
         } else {
           window.console.warn(`Prop startIndex set to ${this.startIndex} is greater than the number of tabs - ${this.tabs.length}. Make sure that the starting index is less than the number of tabs registered`)
         }

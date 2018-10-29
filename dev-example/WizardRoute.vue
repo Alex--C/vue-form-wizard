@@ -21,6 +21,10 @@
           </wizard-step>
         </ul>
       </template>
+      <span title="Das Fahrzeug"
+            :additional-info="{
+                  isCategory: true,
+                  icon: 'far fa-clipboard-list'}"></span>
       <tab-content v-for="tab in tabs" :title="tab" :key="tab">{{tab}}</tab-content>
       <transition name="fade" mode="out-in">
         <router-view></router-view>
